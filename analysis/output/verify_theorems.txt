@@ -1,0 +1,14 @@
+== Part A: Theorem 2 family — closed form vs exact engine ==
+ e=(0.168,0.401): closed (6.43348951, 7.35996404) exact (6.43348951, 7.35996404)  max|err|=1.78e-15  argminATT={Z}
+ e=(0.600,0.800): closed (7.96556122, 6.41581633) exact (7.96556122, 6.41581633)  max|err|=0.00e+00  argminATT={Z,W}
+ e=(0.250,0.450): closed (5.58918803, 6.09702267) exact (5.58918803, 6.09702267)  max|err|=8.88e-16  argminATT={Z}
+
+== Part B: Theorem 1(b) supplementation increment identity ==
+ 300 random designs: max |LHS - RHS| = 8.260e-14
+
+== Part C: Theorem 1(a) deletion increment identity ==
+ 300 random designs: max |LHS - RHS| = 4.080e-14 ; Delta<0 count = 0 (expect 0)
+
+== Part D: finite-sample AIPW-ATT variance vs bound (T1 config) ==
+ S={z}: n*Var_MC = 6.383 vs bound = 6.433 (ratio 0.992); mean est = 0.2493 (psi = 0.2500)
+ S={z,w}: n*Var_MC = 6.901 vs bound = 7.360 (ratio 0.938); mean est = 0.2500 (psi = 0.2500)

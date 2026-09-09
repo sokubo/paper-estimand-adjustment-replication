@@ -1,0 +1,22 @@
+== (i) Lemma 2: ATO bound vs finite-sample Monte Carlo (saturated plug-in) ==
+  att: n*Var_MC = 8.1476  bound = 8.2160  ratio = 0.992  (mean est 0.8012 vs psi 0.8012)
+  ato: n*Var_MC = 6.9188  bound = 6.9048  ratio = 1.002  (mean est 0.8717 vs psi 0.8718)
+
+== (ii) Theorem 4: WATE supplementation identity (W ⊥ A | Z), 300 random designs ==
+     att      ato      ate 
+1.92e-13 1.14e-13 1.07e-13 
+
+== (iii) Corollary 6: ATO thresholds — sign of increment vs e for arm-specific predictors ==
+  e=0.20  control-only:  +0.5000 (theory: hurts iff e<1/3)   treated-only:  -0.4375 (theory: hurts iff e>2/3)
+  e=0.30  control-only:  +0.0833 (theory: hurts iff e<1/3)   treated-only:  -0.3929 (theory: hurts iff e>2/3)
+  e=0.34  control-only:  -0.0147 (theory: hurts iff e<1/3)   treated-only:  -0.3712 (theory: hurts iff e>2/3)
+  e=0.50  control-only:  -0.2500 (theory: hurts iff e<1/3)   treated-only:  -0.2500 (theory: hurts iff e>2/3)
+  e=0.66  control-only:  -0.3712 (theory: hurts iff e<1/3)   treated-only:  -0.0147 (theory: hurts iff e>2/3)
+  e=0.70  control-only:  -0.3929 (theory: hurts iff e<1/3)   treated-only:  +0.0833 (theory: hurts iff e>2/3)
+  e=0.80  control-only:  -0.4375 (theory: hurts iff e<1/3)   treated-only:  +0.5000 (theory: hurts iff e>2/3)
+
+== (iv) Proposition 1: estimand drift under instrument adjustment ==
+  ate: psi(S={Z}) = 1.50000  psi(S={Z,W}) = 1.50000  drift = +0.00000
+  att: psi(S={Z}) = 1.62500  psi(S={Z,W}) = 1.62500  drift = +0.00000
+  ato: psi(S={Z}) = 1.54348  psi(S={Z,W}) = 1.55263  drift = +0.00915
+  closed-form ATO drift = +0.00915

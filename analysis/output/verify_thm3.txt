@@ -1,0 +1,2 @@
+Theorem 3 check on 300 random no-modification designs:
+  max |(V(Z)-V(O)) - RHS(5)| = 1.279e-13 ;  V(Z) < V(O) count = 0 (expect 0) ;  O is argmin in 300/300

@@ -1,0 +1,30 @@
+n = 16177, treated = 185, mixing proportion = 0.0114
+treated propensities (full set): median 0.336, mean 0.322, IQR 0.113-0.573, share > 0.5 = 0.32, share > 0.1 = 0.78
+largest control propensity 0.6375; controls above the 0.9 truncation: 0
+treated-arm term var(Y - m0_full | A = 1) = 67.69; residual SD 8.23
+              set   dropped   est    se se_change_pct est_change
+1   full (all 10)           1.495 0.678        0.0000    0.00000
+2        drop age       age 1.563 0.667       -1.5768    0.06772
+3  drop education education 1.510 0.677       -0.0945    0.01484
+4      drop black     black 0.314 0.618       -8.8112   -1.18131
+5   drop hispanic  hispanic 1.499 0.677       -0.0902    0.00381
+6    drop married   married 1.576 0.673       -0.7469    0.08063
+7   drop nodegree  nodegree 1.511 0.671       -1.0295    0.01600
+8      drop re74k     re74k 1.532 0.675       -0.4480    0.03733
+9      drop re75k     re75k 0.962 0.709        4.6077   -0.53268
+10       drop u74       u74 1.310 0.663       -2.1786   -0.18515
+11       drop u75       u75 1.467 0.671       -0.9646   -0.02823
+   ctrl_pred_shift_treated ctrl_pred_sensitivity_pct t_treated t_control   z_ps
+1                       NA                        NA        NA        NA     NA
+2                  0.57179                   0.84477    0.6744     15.90  1.683
+3                  0.08295                   0.12256    1.4167      6.11  0.401
+4                  0.41994                   0.62042    0.3032      3.75 16.320
+5                  0.00258                   0.00381    0.4203      1.06  4.663
+6                  0.00506                   0.00748    0.6021      1.12  4.120
+7                  0.01876                   0.02771    0.4350      2.09  3.282
+8                  1.09989                   1.62499    1.6275     22.85  2.197
+9                  2.71139                   4.00584    0.0458     34.10  4.923
+10                 0.00586                   0.00866    3.1890      0.88  5.956
+11                 0.39093                   0.57756    2.1917      6.88  0.984
+
+Experimental benchmark (Dehejia-Wahba experimental subsample, 185 treated vs 260 controls): 1.794 (unpooled SE 0.671) thousand 1982 dollars (1978 earnings)
