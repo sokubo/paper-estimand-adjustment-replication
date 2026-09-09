@@ -8,6 +8,12 @@ Preprint: arXiv:XXXX.XXXXX (to be filled at posting). Author: Shoki Okubo (Toyo 
 - analysis/output
 - analysis/data
 - figures
+- .git
+- .git/objects
+- .git/info
+- .git/logs
+- .git/hooks
+- .git/refs
 
 ## How to run
 1. Install R (>= 4.1) and, where required, `remotes::install_github("sokubo/dagmv")`.
@@ -15,7 +21,7 @@ Preprint: arXiv:XXXX.XXXXX (to be filled at posting). Author: Shoki Okubo (Toyo 
    Where the folder contains its own `analysis/README.md`, that file maps every table, figure and
    script-produced number to a script, an output file and a seed, and records data provenance,
    checksums and software versions.
-3. Licensed microdata (if any) are not included; synthetic shadow data reproduce the variable structure only.
+3. The application uses the public NSW and CPS data included in `analysis/data/`; the simulations generate their own data. See `analysis/README.md` for provenance and checksums.
 
 ## Citation
 Okubo, S. (2026). Optimal Covariate Adjustment beyond the Average Treatment Effect: Treated-Population and Overlap-Weighted Estimands. Working paper. arXiv:XXXX.XXXXX.
