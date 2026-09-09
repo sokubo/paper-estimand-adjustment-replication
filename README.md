@@ -5,15 +5,9 @@ Preprint: arXiv:XXXX.XXXXX (to be filled at posting). Author: Shoki Okubo (Toyo 
 
 ## Contents
 - analysis
-- analysis/output
 - analysis/data
+- analysis/output
 - figures
-- .git
-- .git/objects
-- .git/info
-- .git/logs
-- .git/hooks
-- .git/refs
 
 ## How to run
 1. Install R (>= 4.1) and, where required, `remotes::install_github("sokubo/dagmv")`.
