@@ -6,9 +6,13 @@
 # Both are Rajeev Dehejia's distribution files nsw_dw.dta and cps_controls.dta
 # read into R and saved unchanged (variables data_id, treat, age, education,
 # black, hispanic, married, nodegree, re74, re75, re78; earnings in 1982 USD).
+# Both are stored UNCOMPRESSED (save(..., compress = FALSE)): arXiv's upload
+# processing tries to decompress any file whose bytes look like a compressed
+# archive, which corrupts a bzip2- or gzip-compressed .rda in the ancillary
+# bundle. load() reads either form, so this affects only the stored bytes.
 # SHA-256 of the files shipped with the archive:
-#   nsw_dw.rda        6b4637bdadac7e4c7d95e9d2a1a8a3afcdf0de8b15cb6bb47731d6efcb25d49e
-#   cps_controls.rda  0c41b180b79c01eb77f201a24b5366a205b72f0b7bdabc822fbee505fd2a5a23
+#   nsw_dw.rda        f5c210eb2a1caddda736a6decff9a2b0e50a5e4cc58dd42ef8ac3a3058a80757
+#   cps_controls.rda  5c770cf1e9c0b780dc58e0de693157839e27f05e0fe38b9837ace613c443a83c
 #
 # If the .rda files are present this script only verifies them. If they are
 # absent it rebuilds them from a public copy, in this order:
@@ -59,5 +63,5 @@ if (requireNamespace("causaldata", quietly = TRUE)) {
 for (v in vars[-1]) { nsw_dw[[v]] <- as.numeric(nsw_dw[[v]]); cps_controls[[v]] <- as.numeric(cps_controls[[v]]) }
 nsw_dw$data_id <- as.character(nsw_dw$data_id); cps_controls$data_id <- as.character(cps_controls$data_id)
 check(nsw_dw, cps_controls)
-save(nsw_dw, file = f_nsw); save(cps_controls, file = f_cps)
-cat("wrote", f_nsw, "and", f_cps, "(rebuilt copies; checksums differ from the shipped files because of the save format, values are identical)\n")
+save(nsw_dw, file = f_nsw, compress = FALSE); save(cps_controls, file = f_cps, compress = FALSE)
+cat("wrote", f_nsw, "and", f_cps, "(rebuilt copies; checksums may differ from the shipped files, values are identical)\n")

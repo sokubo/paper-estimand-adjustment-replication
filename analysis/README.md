@@ -34,11 +34,15 @@ are those printouts (`Rscript verify_theorems.R > output/verify_theorems.txt`).
 `data/cps_controls.rda` (15,992 rows) are Rajeev Dehejia's distribution files
 `nsw_dw.dta` and `cps_controls.dta` (the Dehejia–Wahba 1999 experimental
 subsample and LaLonde's CPS-1 comparison group; earnings in 1982 dollars),
-read into R and saved unchanged. SHA-256:
+read into R and saved unchanged. They are stored uncompressed
+(`save(..., compress = FALSE)`): arXiv's upload processing tries to
+decompress any file whose bytes look like a compressed archive, which
+corrupts a compressed `.rda` in the ancillary bundle. `load()` reads either
+form, so this affects the stored bytes only. SHA-256:
 
 ```
-6b4637bdadac7e4c7d95e9d2a1a8a3afcdf0de8b15cb6bb47731d6efcb25d49e  data/nsw_dw.rda
-0c41b180b79c01eb77f201a24b5366a205b72f0b7bdabc822fbee505fd2a5a23  data/cps_controls.rda
+f5c210eb2a1caddda736a6decff9a2b0e50a5e4cc58dd42ef8ac3a3058a80757  data/nsw_dw.rda
+5c770cf1e9c0b780dc58e0de693157839e27f05e0fe38b9837ace613c443a83c  data/cps_controls.rda
 ```
 
 `data/get_lalonde_data.R` verifies the two files (row counts, treated counts,
