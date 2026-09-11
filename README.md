@@ -1,7 +1,7 @@
 # Replication archive: Optimal Covariate Adjustment beyond the Average Treatment Effect: Treated-Population and Overlap-Weighted Estimands
 
 Code and (public) data to reproduce the tables and figures of the paper.
-Preprint: arXiv:XXXX.XXXXX (to be filled at posting). Author: Shoki Okubo (Toyo University).
+Preprint: arXiv:2609.11222 (to be filled at posting). Author: Shoki Okubo (Toyo University).
 
 ## Contents
 - analysis
@@ -18,4 +18,4 @@ Preprint: arXiv:XXXX.XXXXX (to be filled at posting). Author: Shoki Okubo (Toyo 
 3. The application uses the public NSW and CPS data included in `analysis/data/`; the simulations generate their own data. See `analysis/README.md` for provenance and checksums.
 
 ## Citation
-Okubo, S. (2026). Optimal Covariate Adjustment beyond the Average Treatment Effect: Treated-Population and Overlap-Weighted Estimands. Working paper. arXiv:XXXX.XXXXX.
+Okubo, S. (2026). Optimal Covariate Adjustment beyond the Average Treatment Effect: Treated-Population and Overlap-Weighted Estimands. Working paper. arXiv:2609.11222.
