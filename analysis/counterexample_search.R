@@ -14,6 +14,16 @@
 # a simulated population (bounds_for_S) are kept only for comparison.
 # Exactly tied minimizers (relative tolerance 1e-9) are all listed.
 # Seeds: 20260818 (design checks T1-T4), 99 (the 60-structure scan).
+# Divergence count: a structure is counted as a divergence when the exact
+# ATT penalty of the ATE-optimal set exceeds 1 percent (materiality
+# threshold); the output also reports the number of structures with any
+# positive penalty (> 1e-9, the tie tolerance) and lists every positive
+# penalty, so both counts can be read off. At seed 99 the two counts
+# coincide (10 = 10); at other seeds they can differ by structures with a
+# penalty below 1 percent (both counts reported since archive version 1.1).
+# Other seeds: SCAN_SEED=123 Rscript counterexample_search.R writes
+# output/counterexample_results_seed123.txt (shipped for seeds 123 and 2026;
+# the T1-T4 checks are unaffected by SCAN_SEED).
 # Output: output/counterexample_results.txt. Runtime about 40 s.
 # Superseded Monte Carlo-only version: counterexample_search_v1_mc.R.
 suppressMessages(library(dagmv))
@@ -78,7 +88,9 @@ report <- function(title, Z, A, Y, sets) {
   invisible(out)
 }
 
-sink("output/counterexample_results.txt")
+SCAN_SEED <- as.integer(Sys.getenv("SCAN_SEED", "99"))
+out_file <- if (SCAN_SEED == 99L) "output/counterexample_results.txt" else sprintf("output/counterexample_results_seed%d.txt", SCAN_SEED)
+sink(out_file)
 
 ## ---- Design T1: control-arm-only predictor, rare treatment ------------
 ## Z1 confounder; P predicts Y(0) only (effect modification); e ~ 0.2.
@@ -133,7 +145,8 @@ cat(sprintf("T4  : psiATO(Z1) = %.4f  vs psiATO(Z1,P0) = %.4f\n",
 ## 60 random structures, J=4 binary covariates; count divergences of
 ## argmin_S V_ATT vs argmin_S V_ATE over valid sets (dagmv validity).
 cat("\n==== Random scan: argmin divergence over valid adjustment sets ====\n")
-set.seed(99); NR <- 4e5; n_div <- 0; n_ok <- 0; examples <- list()
+cat(sprintf("scan seed: %d\n", SCAN_SEED))
+set.seed(SCAN_SEED); NR <- 4e5; n_div <- 0; n_ok <- 0; examples <- list()
 n_skip_par <- 0; n_skip_valid <- 0; gaps <- c(); prev <- c(); mc_dev <- c(); n_tie <- 0; tie_spread <- 0; ties <- list()   # all argmin divergences, prevalences and skip reasons are recorded
 for (g in 1:60) {
   J <- 4
@@ -195,9 +208,9 @@ for (g in 1:60) {
   gapATT <- (bb[aATE,"V_ATT"] - bb[aATT,"V_ATT"]) / bb[aATT,"V_ATT"]
   gapMC  <- (bb_mc[aATE,"V_ATT"] - bb_mc[aATT,"V_ATT"]) / bb_mc[aATT,"V_ATT"]
   mc_dev <- c(mc_dev, gapMC - gapATT)
-  if (gapATT > 1e-9) {
+  if (gapATT > 1e-9) {                 # distinct minimizers (beyond the tie tolerance): every positive penalty is recorded
     gaps <- c(gaps, gapATT)
-    if (gapATT > 0.01) {
+    if (gapATT > 0.01) {               # counted as a divergence only when the penalty exceeds 1 percent
       n_div <- n_div + 1
       if (length(examples) < 3)
         examples[[length(examples)+1]] <- list(
@@ -213,8 +226,11 @@ cat(sprintf("skipped: no treatment or outcome parent = %d; fewer than two valid 
 cat("exact ATT penalty (pct) of the ATE-optimal set in every structure whose argmins differ (penalty > 0):",
     paste(round(100*sort(gaps), 2), collapse = ", "), "\n")
 cat(sprintf("median exact penalty among structures with penalty > 1%%: %.2f%%\n", 100*median(gaps[gaps > 0.01])))
+cat(sprintf("median exact penalty among all structures with penalty > 0: %.2f%%\n", 100*median(gaps)))
 cat(sprintf("structures evaluated: %d; argmin(ATE) != argmin(ATT) with >1%% ATT penalty: %d (%.0f%%)\n",
             n_ok, n_div, 100*n_div/max(n_ok,1)))
+cat(sprintf("structures with distinct minimizers and any positive ATT penalty (> 1e-9): %d; of these, penalty <= 1%%: %d\n",
+            length(gaps), sum(gaps <= 0.01)))
 cat(sprintf("treatment prevalence P(A=1) across evaluated structures: %.3f to %.3f (%d above 0.5)\n",
             min(prev), max(prev), sum(prev > 0.5)))
 cat(sprintf("largest |Monte Carlo - exact| penalty difference: %.3f percentage points\n", 100*max(abs(mc_dev))))
@@ -231,4 +247,4 @@ for (k in seq_along(ties)) {
               k, ties[[k]]$graph, ties[[k]]$ate_min, ties[[k]]$att_min))
 }
 sink()
-cat(readLines("output/counterexample_results.txt"), sep="\n")
+cat(readLines(out_file), sep="\n")

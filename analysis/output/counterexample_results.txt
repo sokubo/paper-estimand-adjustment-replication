@@ -29,11 +29,14 @@ T1  : psiATO(Z1) = 0.2489  vs psiATO(Z1,P) = 0.2488
 T4  : psiATO(Z1) = 0.3280  vs psiATO(Z1,P0) = 0.3274
 
 ==== Random scan: argmin divergence over valid adjustment sets ====
+scan seed: 99
 bounds: exact enumeration of the 2^J covariate cells (Monte Carlo cell averages on 4e5 draws kept only for comparison)
 skipped: no treatment or outcome parent = 7; fewer than two valid sets = 4
 exact ATT penalty (pct) of the ATE-optimal set in every structure whose argmins differ (penalty > 0): 2.92, 4.53, 7.97, 10.96, 14, 15.46, 15.6, 15.86, 20.14, 25.86 
 median exact penalty among structures with penalty > 1%: 14.73%
+median exact penalty among all structures with penalty > 0: 14.73%
 structures evaluated: 49; argmin(ATE) != argmin(ATT) with >1% ATT penalty: 10 (20%)
+structures with distinct minimizers and any positive ATT penalty (> 1e-9): 10; of these, penalty <= 1%: 0
 treatment prevalence P(A=1) across evaluated structures: 0.190 to 0.559 (3 above 0.5)
 largest |Monte Carlo - exact| penalty difference: 0.546 percentage points
 structures with exactly tied minimizers (relative tolerance 1e-9; every tied set is listed at the end of this file): 21

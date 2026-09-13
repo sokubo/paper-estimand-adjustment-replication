@@ -1,0 +1,126 @@
+
+==== T1: P predicts Y(0) only, treatment rare (e<1/2 a.s.) ====
+     V_ATE  V_ATT psiATE psiATT psiATO
+Z1   6.457 6.4286 0.2484 0.2492 0.2489
+Z1+P 6.212 7.3624 0.2483 0.2489 0.2488
+
+==== T1b: P predicts Y(0) only, treatment common (e>1/2 a.s.) ====
+      V_ATE  V_ATT psiATE psiATT psiATO
+Z1   8.0474 9.0744 0.2500 0.2499 0.2500
+Z1+P 6.2245 7.0927 0.2507 0.2510 0.2502
+
+==== T2: P predicts Y(1) only ====
+      V_ATE  V_ATT psiATE psiATT psiATO
+Z1   5.5358 5.9014 1.7505 1.7503 1.7506
+Z1+P 4.9843 5.8966 1.7502 1.7503 1.7504
+
+==== T3: W pure instrument (deletion should help both) ====
+      V_ATE  V_ATT psiATE psiATT psiATO
+Z1   4.3483 4.6188 0.9989 0.9989 0.9988
+Z1+W 5.0664 6.1953 0.9995 1.0004 0.9991
+
+==== T4: P0 in Pa(Y) both arms (O_ATE includes it); rare treatment ====
+       V_ATE  V_ATT psiATE psiATT psiATO
+Z1    6.9576 6.8145 0.3288 0.3277 0.3280
+Z1+P0 6.4643 7.4440 0.3285 0.3270 0.3274
+
+==== ATO estimand drift (psiATO by adjustment set) ====
+T1  : psiATO(Z1) = 0.2489  vs psiATO(Z1,P) = 0.2488
+T4  : psiATO(Z1) = 0.3280  vs psiATO(Z1,P0) = 0.3274
+
+==== Random scan: argmin divergence over valid adjustment sets ====
+scan seed: 2026
+bounds: exact enumeration of the 2^J covariate cells (Monte Carlo cell averages on 4e5 draws kept only for comparison)
+skipped: no treatment or outcome parent = 2; fewer than two valid sets = 2
+exact ATT penalty (pct) of the ATE-optimal set in every structure whose argmins differ (penalty > 0): 0.01, 1.49, 4.94, 10.69, 18.21, 26.87 
+median exact penalty among structures with penalty > 1%: 10.69%
+median exact penalty among all structures with penalty > 0: 7.82%
+structures evaluated: 56; argmin(ATE) != argmin(ATT) with >1% ATT penalty: 5 (9%)
+structures with distinct minimizers and any positive ATT penalty (> 1e-9): 6; of these, penalty <= 1%: 1
+treatment prevalence P(A=1) across evaluated structures: 0.211 to 0.573 (5 above 0.5)
+largest |Monte Carlo - exact| penalty difference: 0.441 percentage points
+structures with exactly tied minimizers (relative tolerance 1e-9; every tied set is listed at the end of this file): 23
+largest relative spread of the other bound among tied minimizers: 3.48e-15 (0 means the penalty is the same whichever tied set is named)
+
+-- example --
+ graph: Z1 -> Z2 ; Z1 -> Z3 ; Z2 -> Z3 ; Z3 -> A ; Z1 -> Y ; Z2 -> Y ; A -> Y 
+  ATE-optimal: Z1+Z2 = Z1+Z2+Z4  | ATT-optimal: Z3 = Z3+Z4  | ATT penalty of using ATE-optimal: 26.87 %
+
+-- example --
+ graph: Z1 -> Z3 ; Z1 -> Z4 ; Z2 -> Z4 ; Z1 -> A ; Z2 -> A ; Z1 -> Y ; Z2 -> Y ; Z3 -> Y ; Z4 -> Y ; A -> Y 
+  ATE-optimal: Z1+Z2+Z3+Z4  | ATT-optimal: Z1+Z2+Z3  | ATT penalty of using ATE-optimal: 4.94 %
+
+-- example --
+ graph: Z3 -> Z4 ; Z2 -> A ; Z3 -> A ; Z4 -> Y ; A -> Y 
+  ATE-optimal: Z4 = Z1+Z4  | ATT-optimal: Z3 = Z1+Z3  | ATT penalty of using ATE-optimal: 1.49 %
+
+==== All structures with exactly tied minimizers (relative tolerance 1e-9) ====
+[1] graph: Z1 -> Z2 ; Z1 -> Z3 ; Z2 -> Z3 ; Z3 -> A ; Z1 -> Y ; Z2 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2 = Z1+Z2+Z4
+     ATT-minimizers: Z3 = Z3+Z4
+[2] graph: Z2 -> Z4 ; Z1 -> A ; Z3 -> A ; Z1 -> Y ; Z2 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2 = Z1+Z2+Z4
+     ATT-minimizers: Z1+Z2 = Z1+Z2+Z4
+[3] graph: Z2 -> Z3 ; Z1 -> Z4 ; Z3 -> Z4 ; Z2 -> A ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+[4] graph: Z1 -> Z3 ; Z2 -> Z4 ; Z3 -> A ; Z3 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z3+Z4 = Z1+Z3+Z4 = Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z3+Z4 = Z1+Z3+Z4 = Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+[5] graph: Z3 -> Z4 ; Z2 -> A ; Z3 -> A ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z4 = Z1+Z4
+     ATT-minimizers: Z3 = Z1+Z3
+[6] graph: Z1 -> Z2 ; Z2 -> A ; Z3 -> A ; Z4 -> A ; Z2 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z3 = Z1+Z2+Z3
+     ATT-minimizers: Z2+Z3 = Z1+Z2+Z3
+[7] graph: Z1 -> Z3 ; Z1 -> A ; Z2 -> A ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2 = Z1+Z2+Z3
+     ATT-minimizers: Z1+Z2 = Z1+Z2+Z3
+[8] graph: Z2 -> A ; Z3 -> A ; Z4 -> A ; Z3 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z3+Z4 = Z1+Z3+Z4
+     ATT-minimizers: Z3+Z4 = Z1+Z3+Z4
+[9] graph: Z1 -> Z4 ; Z1 -> A ; Z3 -> A ; Z4 -> A ; Z3 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z3+Z4 = Z2+Z3+Z4
+     ATT-minimizers: Z3+Z4 = Z2+Z3+Z4
+[10] graph: Z2 -> Z3 ; Z3 -> A ; Z2 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z3 = Z1+Z2+Z3 = Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z2+Z3 = Z1+Z2+Z3 = Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+[11] graph: Z2 -> A ; Z4 -> A ; Z2 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z3 = Z1+Z2+Z3
+     ATT-minimizers: Z2 = Z1+Z2
+[12] graph: Z1 -> Z2 ; Z1 -> Z3 ; Z1 -> A ; Z2 -> A ; Z3 -> A ; Z2 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z3 = Z2+Z3+Z4
+     ATT-minimizers: Z2+Z3 = Z2+Z3+Z4
+[13] graph: Z1 -> Z4 ; Z1 -> A ; Z2 -> A ; Z4 -> A ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z4 = Z2+Z3+Z4
+     ATT-minimizers: Z2+Z4 = Z2+Z3+Z4
+[14] graph: Z1 -> Z3 ; Z3 -> Z4 ; Z1 -> A ; Z2 -> A ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+[15] graph: Z1 -> Z2 ; Z3 -> Z4 ; Z1 -> A ; Z2 -> A ; Z3 -> A ; Z1 -> Y ; Z2 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2+Z3 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z1+Z2+Z3 = Z1+Z2+Z3+Z4
+[16] graph: Z2 -> Z3 ; Z1 -> A ; Z2 -> A ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2 = Z1+Z2+Z3
+     ATT-minimizers: Z1+Z2 = Z1+Z2+Z3
+[17] graph: Z2 -> A ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+[18] graph: Z1 -> Z4 ; Z2 -> A ; Z2 -> Y ; Z3 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z2+Z3+Z4 = Z1+Z2+Z3+Z4
+[19] graph: Z2 -> Z3 ; Z1 -> A ; Z3 -> A ; Z4 -> A ; Z1 -> Y ; Z3 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z3 = Z1+Z2+Z3
+     ATT-minimizers: Z1+Z3 = Z1+Z2+Z3
+[20] graph: Z1 -> Z2 ; Z1 -> Z4 ; Z2 -> Z4 ; Z1 -> A ; Z2 -> A ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z4 = Z3+Z4
+     ATT-minimizers: Z4 = Z3+Z4
+[21] graph: Z2 -> Z3 ; Z2 -> Z4 ; Z3 -> Z4 ; Z2 -> A ; Z3 -> A ; Z4 -> A ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z2+Z4 = Z1+Z2+Z4
+     ATT-minimizers: Z2+Z4 = Z1+Z2+Z4
+[22] graph: Z2 -> A ; Z1 -> Y ; Z2 -> Y ; Z4 -> Y ; A -> Y
+     ATE-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+     ATT-minimizers: Z1+Z2+Z4 = Z1+Z2+Z3+Z4
+[23] graph: Z1 -> Z3 ; Z2 -> A ; Z3 -> A ; Z2 -> Y ; A -> Y
+     ATE-minimizers: Z2 = Z2+Z4
+     ATT-minimizers: Z2 = Z2+Z4
