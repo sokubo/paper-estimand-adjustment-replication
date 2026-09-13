@@ -38,7 +38,7 @@ median exact penalty among all structures with penalty > 0: 7.82%
 structures evaluated: 56; argmin(ATE) != argmin(ATT) with >1% ATT penalty: 5 (9%)
 structures with distinct minimizers and any positive ATT penalty (> 1e-9): 6; of these, penalty <= 1%: 1
 treatment prevalence P(A=1) across evaluated structures: 0.211 to 0.573 (5 above 0.5)
-largest |Monte Carlo - exact| penalty difference: 0.441 percentage points
+largest |Monte Carlo - exact| penalty difference: 0.444 percentage points
 structures with exactly tied minimizers (relative tolerance 1e-9; every tied set is listed at the end of this file): 23
 largest relative spread of the other bound among tied minimizers: 3.48e-15 (0 means the penalty is the same whichever tied set is named)
 

@@ -10,10 +10,16 @@ distinct minimizers and *any* positive penalty, and accepts a scan seed
 (`SCAN_SEED=<n> Rscript counterexample_search.R`); outputs for seeds 123 and
 2026 are added (`output/counterexample_results_seed123.txt`,
 `output/counterexample_results_seed2026.txt`). At the paper's seed 99 the two
-counts coincide (10 = 10) and every shipped number is unchanged. The
+counts coincide (10 = 10) and every reported number is unchanged. The
 threshold was applied in version 1.0 but not stated in the paper; we thank
 Jürgen Degenfellner (ZHAW) for reproducing the archive independently and
-pointing this out.
+pointing this out. All outputs used by the paper were regenerated under
+R 4.6.0 for this version (see "Software versions"; the legacy outputs and the
+`*_run.log` files are left as produced under R 4.3.3); they differ from the version-1.0 outputs,
+produced under R 4.3.3, only at machine precision (relative differences below
+$3 \times 10^{-12}$ in the tables; the machine-precision residuals of the
+`verify_*` checks change in their leading digit but stay of order
+$10^{-13}$).
 
 Every table entry, the figure, and every number in the paper attributed to a
 script are produced by one of the scripts below (closed-form constants worked
@@ -73,16 +79,17 @@ the same covariates fitted to the 15,992 controls.
 
 ## Software versions used for the shipped outputs
 
-R 4.3.3 (2024-02-29); `dagmv` 0.1.2 (`remotes::install_github("sokubo/dagmv")`,
+R 4.6.0 (2026-04-24, macOS arm64); `dagmv` 0.1.2 (`remotes::install_github("sokubo/dagmv")`,
 then check `packageVersion("dagmv")`; the package is used only to enumerate
 the sets satisfying the adjustment criterion in `counterexample_search.R`);
-`ggplot2` 3.4.4 (Figure 1 only). Everything else is base R. Rerunning the
-seeded scripts under R 4.3.3 reproduces the shipped output files exactly
-(checked from a clean copy of this directory). An independent rerun of the
-archive under R 4.6.0 (Jürgen Degenfellner, September 2026) reproduced the
-reported results; other R versions may still change the last floating-point
-digits of the machine-precision checks, but the tables are unaffected at
-their reported rounding.
+`ggplot2` 4.0.3 (Figure 1 only). Everything else is base R. The version-1.0
+outputs were produced under R 4.3.3 (Linux) with `ggplot2` 3.4.4 and differ
+from the shipped files only at machine precision (see above); an independent
+rerun of version 1.0 under R 4.6.0 (Jürgen Degenfellner, September 2026)
+likewise reproduced the reported results. Other platforms or R versions may
+change the last floating-point digits of the machine-precision checks and
+the byte content of the PNG, but the tables are unaffected at their reported
+rounding.
 
 ## Conventions worth knowing
 
@@ -98,7 +105,7 @@ their reported rounding.
   cells); the 21 structures with exactly tied minimizers (relative tolerance
   $10^{-9}$) are listed in full at the end of the output file, and the
   printed "largest relative spread" line confirms that sets tied for one
-  minimum share the other bound (relative spread $2.2 \times 10^{-15}$), so
+  minimum share the other bound (relative spread $2.1 \times 10^{-15}$), so
   the penalty does not depend on which tied set is named. A structure is
   *counted* as a divergence only when the exact ATT penalty of the
   ATE-optimal set exceeds 1 % (`gapATT > 0.01`); every positive penalty

@@ -4,10 +4,10 @@
  e=(0.250,0.450): closed (5.58918803, 6.09702267) exact (5.58918803, 6.09702267)  max|err|=8.88e-16  argminATT={Z}
 
 == Part B: Theorem 1(b) supplementation increment identity ==
- 300 random designs: max |LHS - RHS| = 8.260e-14
+ 300 random designs: max |LHS - RHS| = 1.208e-13
 
 == Part C: Theorem 1(a) deletion increment identity ==
- 300 random designs: max |LHS - RHS| = 4.080e-14 ; Delta<0 count = 0 (expect 0)
+ 300 random designs: max |LHS - RHS| = 3.464e-14 ; Delta<0 count = 0 (expect 0)
 
 == Part D: finite-sample AIPW-ATT variance vs bound (T1 config) ==
  S={z}: n*Var_MC = 6.383 vs bound = 6.433 (ratio 0.992); mean est = 0.2493 (psi = 0.2500)

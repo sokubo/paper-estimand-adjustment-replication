@@ -40,7 +40,7 @@ structures with distinct minimizers and any positive ATT penalty (> 1e-9): 5; of
 treatment prevalence P(A=1) across evaluated structures: 0.190 to 0.554 (6 above 0.5)
 largest |Monte Carlo - exact| penalty difference: 0.283 percentage points
 structures with exactly tied minimizers (relative tolerance 1e-9; every tied set is listed at the end of this file): 24
-largest relative spread of the other bound among tied minimizers: 4.53e-15 (0 means the penalty is the same whichever tied set is named)
+largest relative spread of the other bound among tied minimizers: 2.57e-15 (0 means the penalty is the same whichever tied set is named)
 
 -- example --
  graph: Z1 -> Z2 ; Z1 -> Z3 ; Z4 -> A ; Z1 -> Y ; Z2 -> Y ; Z3 -> Y ; Z4 -> Y ; A -> Y 
